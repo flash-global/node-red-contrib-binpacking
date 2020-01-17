@@ -1,24 +1,58 @@
 {
-  "name": "node-red-contrib-binpacking",
-  "version": "1.0.0",
-  "description": "node-red bin packing",
-  "main": "index.js",
-  "scripts": {
-    "test": "echo \"Error: no test specified\" && exit 1"
+  "_from": "node-red-contrib-binpacking@1.0.0",
+  "_id": "node-red-contrib-binpacking@1.0.0",
+  "_inBundle": false,
+  "_integrity": "sha512-kGr/w0OeA4ogpENSgt2dh5BzKvt/wSmSFU0Z7xA6bUsKdaVlseAy0/ZsKpVhv4f1UleKYvd+ZVxh+YzNUcOrEQ==",
+  "_location": "/node-red-contrib-binpacking",
+  "_phantomChildren": {},
+  "_requested": {
+    "type": "version",
+    "registry": true,
+    "raw": "node-red-contrib-binpacking@1.0.0",
+    "name": "node-red-contrib-binpacking",
+    "escapedName": "node-red-contrib-binpacking",
+    "rawSpec": "1.0.0",
+    "saveSpec": null,
+    "fetchSpec": "1.0.0"
   },
+  "_requiredBy": [
+    "#USER",
+    "/"
+  ],
+  "_resolved": "https://registry.npmjs.org/node-red-contrib-binpacking/-/node-red-contrib-binpacking-1.0.0.tgz",
+  "_shasum": "b27f44ab2d38c4187b09471d36400a978f68b88e",
+  "_spec": "node-red-contrib-binpacking@1.0.0",
+  "_where": "/home/lav/.node-red",
+  "author": {
+    "name": "lav@yoctu.com"
+  },
+  "bugs": {
+    "url": "https://github.com/lvenier/node-red-contrib-binpacking/issues"
+  },
+  "bundleDependencies": false,
   "dependencies": {
     "binpackingjs": "*"
   },
-  "repository": {
-    "type": "git",
-    "url": "https://github.com/lvenier/node-red-contrib-binpacking.git"
-  },
-  "author": "lav@yoctu.com",
+  "deprecated": false,
+  "description": "node-red bin packing",
+  "homepage": "https://github.com/lvenier/node-red-contrib-binpacking#readme",
+  "keywords": [
+    "node-red"
+  ],
   "license": "ISC",
-  "keywords": ["node-red"],
+  "main": "index.js",
+  "name": "node-red-contrib-binpacking",
   "node-red": {
     "nodes": {
       "binpacking": "index.js"
     }
-  }
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/lvenier/node-red-contrib-binpacking.git"
+  },
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "version": "1.0.1"
 }
