@@ -9,6 +9,16 @@
   "dependencies": {
     "binpackingjs": "*"
   },
+  "repository": {
+    "type": "git",
+    "url": "https://github.com/lvenier/node-red-contrib-binpacking.git"
+  },
   "author": "lav@yoctu.com",
-  "license": "ISC"
+  "license": "ISC",
+  "keywords": ["node-red"],
+  "node-red": {
+    "nodes": {
+      "binpacking": "index.js"
+    }
+  }
 }
