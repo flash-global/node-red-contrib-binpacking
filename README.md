@@ -25,9 +25,13 @@ It provides 2 examples :
 ## Contributors and Thanks
 
 Thank you
+
 @olragon for the binpackingjs library
+
 @fanshan for the feedback on the palette
+
 @misterbh for the first version
+
 @zainiro for using it
 
 LaV.
