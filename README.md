@@ -1,7 +1,8 @@
 # node-red-contrib-binpacking
 
 node-red-contrib-binpacking is based on the binpackingjs (https://github.com/olragon/binpackingjs) library.
-it only supports 3D pakcing and is primarly designed for logistics purpose.
+
+It only supports 3D packing and is primarly designed for logistics purpose.
 
 ## Input / Output
 
@@ -20,7 +21,6 @@ You can check the flow in the sample directory to have a better understanding of
 It provides 2 examples :
 - timestamp with predefined set of data
 - api get/post to input values
-
 
 ## Contributors and Thanks
 
