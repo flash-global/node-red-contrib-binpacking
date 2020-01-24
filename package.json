@@ -37,7 +37,9 @@
   "description": "node-red bin packing",
   "homepage": "https://github.com/lvenier/node-red-contrib-binpacking#readme",
   "keywords": [
-    "node-red"
+    "node-red",
+    "binpacking",
+    "logistics"
   ],
   "license": "ISC",
   "main": "index.js",
@@ -54,5 +56,5 @@
   "scripts": {
     "test": "echo \"Error: no test specified\" && exit 1"
   },
-  "version": "1.0.1"
+  "version": "1.0.2"
 }

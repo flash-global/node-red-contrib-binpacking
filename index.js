@@ -25,7 +25,7 @@ module.exports = function(RED) {
         for (const bin in msg.bins) {
           if (msg.bins[bin].width && msg.bins[bin].height && msg.bins[bin].length && msg.bins[bin].weight) {
             if (!msg.bins[bin].name) msg.bins[bin].name = "vehicle";
-            bins.push(new Bin(msg.bins[bin].name + " " + bin, msg.bins[bin].width, msg.bins[bin].height, msg.bins[bin].length, msg.bins[bin].weight));
+            bins.push(new Bin(msg.bins[bin].name + " " + bin, parseInt(msg.bins[bin].width), parseInt(msg.bins[bin].height), parseInt(msg.bins[bin].length), parseInt(msg.bins[bin].weight)));
           } else BinPackingError(this, "invalid msg.bins")
         }
       } else BinPackingError(this, "missing msg.bins")
@@ -61,6 +61,7 @@ module.exports = function(RED) {
             binpackingsolution++;
           }
         }
+        msg.payload.countok = binpackingsolution;
         if (binpackingsolution === 0) this.status({
           fill: "yellow",
           shape: "ring",
