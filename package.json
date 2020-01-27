@@ -37,6 +37,9 @@
     "type": "git",
     "url": "https://github.com/lvenier/node-red-contrib-binpacking.git"
   },
+  "publishConfig": { 
+    "registry": "https://npm.pkg.github.com/" 
+  },
   "main": "index.js",
   "scripts": {
     "lint": "eslint --ext .js index.js",
