@@ -4,6 +4,17 @@ node_js:
   - 10
   - 8
 
+install:
+  - npm install
+
+script:
+  - npm test
+
+notifications:
+  email:
+    recipients:
+      - lav@yoctu.com
+
 deploy:
   provider: npm
   email: "lav@yoctu.com"
