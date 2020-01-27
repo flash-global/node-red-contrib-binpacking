@@ -35,7 +35,6 @@ module.exports = function (RED) {
       if (msg.packages && msg.packages.length > 0) {
         for (const pkg in msg.packages) {
           if (!msg.packages[pkg].quantity) msg.packages[pkg].quantity = 1
-          console.log(msg.packages[pkg].width)
           if (msg.packages[pkg].width && msg.packages[pkg].height && msg.packages[pkg].length && msg.packages[pkg].weight) {
             for (let q = 0; q < msg.packages[pkg].quantity; q++) {
               if (!msg.packages[pkg].name) msg.packages[pkg].name = 'Item'
