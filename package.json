@@ -1,28 +1,4 @@
 {
-  "_from": "node-red-contrib-binpacking@1.0.0",
-  "_id": "node-red-contrib-binpacking@1.0.0",
-  "_inBundle": false,
-  "_integrity": "sha512-kGr/w0OeA4ogpENSgt2dh5BzKvt/wSmSFU0Z7xA6bUsKdaVlseAy0/ZsKpVhv4f1UleKYvd+ZVxh+YzNUcOrEQ==",
-  "_location": "/node-red-contrib-binpacking",
-  "_phantomChildren": {},
-  "_requested": {
-    "type": "version",
-    "registry": true,
-    "raw": "node-red-contrib-binpacking@1.0.0",
-    "name": "node-red-contrib-binpacking",
-    "escapedName": "node-red-contrib-binpacking",
-    "rawSpec": "1.0.0",
-    "saveSpec": null,
-    "fetchSpec": "1.0.0"
-  },
-  "_requiredBy": [
-    "#USER",
-    "/"
-  ],
-  "_resolved": "https://registry.npmjs.org/node-red-contrib-binpacking/-/node-red-contrib-binpacking-1.0.0.tgz",
-  "_shasum": "b27f44ab2d38c4187b09471d36400a978f68b88e",
-  "_spec": "node-red-contrib-binpacking@1.0.0",
-  "_where": "/home/lav/.node-red",
   "author": {
     "name": "lav@yoctu.com"
   },
@@ -32,6 +8,14 @@
   "bundleDependencies": false,
   "dependencies": {
     "binpackingjs": "*"
+  },
+  "devDependencies": {
+    "eslint": "*",
+    "eslint-plugin-import": "*",
+    "eslint-plugin-node": "*",
+    "eslint-plugin-promise": "*",
+    "eslint-config-standard": "*",
+    "eslint-plugin-standard": "*"
   },
   "deprecated": false,
   "description": "node-red bin packing",
@@ -51,10 +35,13 @@
   },
   "repository": {
     "type": "git",
-    "url": "git+https://github.com/lvenier/node-red-contrib-binpacking.git"
+    "url": "https://github.com/lvenier/node-red-contrib-binpacking.git"
   },
+  "main": "index.js",
   "scripts": {
-    "test": "echo \"Audit: no test specified\" && exit 0"
+    "lint": "eslint --ext .js index.js",
+    "lint-fix": "eslint --fix --ext .js index.js",
+    "test": "npm run lint"
   },
-  "version": "1.0.4"
+  "version": "1.0.6"
 }
