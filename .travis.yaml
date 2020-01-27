@@ -19,3 +19,5 @@ deploy:
   provider: npm
   email: "lav@yoctu.com"
   api_key: "81e3eb5f-350a-4c54-8eac-e07c4fc3eb05"
+  on:
+    branch: master
