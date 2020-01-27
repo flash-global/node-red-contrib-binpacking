@@ -33,6 +33,14 @@
   "dependencies": {
     "binpackingjs": "*"
   },
+  "devDependencies": {
+    "eslint": "*",
+    "eslint-plugin-import": "*",
+    "eslint-plugin-node": "*",
+    "eslint-plugin-promise": "*",
+    "eslint-config-standard": "*",
+    "eslint-plugin-standard": "*"
+  },
   "deprecated": false,
   "description": "node-red bin packing",
   "homepage": "https://github.com/lvenier/node-red-contrib-binpacking#readme",
@@ -54,7 +62,9 @@
     "url": "git+https://github.com/lvenier/node-red-contrib-binpacking.git"
   },
   "scripts": {
-    "test": "echo \"Audit: no test specified\" && exit 0"
+    "lint": "eslint --ext .js index.js",
+    "lint-fix": "eslint --fix --ext .js index.js",
+    "test": "npm run lint"
   },
-  "version": "1.0.4"
+  "version": "1.0.5"
 }
