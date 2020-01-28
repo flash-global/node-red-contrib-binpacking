@@ -17,6 +17,7 @@ module.exports = function (RED) {
         Bin,
         Packer
       } = require('binpackingjs').BP3D
+      msg.payload = {}
       msg.payload.result = []
 
       // Bins Setup
