@@ -17,7 +17,7 @@ module.exports = function (RED) {
         Bin,
         Packer
       } = require('binpackingjs').BP3D
-      msg.payload = []
+      msg.payload.result = []
 
       // Bins Setup
       const bins = []
@@ -50,13 +50,12 @@ module.exports = function (RED) {
           const packer = new Packer()
           packer.addBin(bins[b])
           packer.items.push(...packages)
-          // packer.items.push(msg.payload);
           packer.pack()
-          msg.payload[b] = {}
-          msg.payload[b].bin = bins[b]
-          msg.payload[b].success = false
+          msg.payload.result[b] = {}
+          msg.payload.result[b].bin = bins[b]
+          msg.payload.result[b].success = false
           if (packer.unfitItems.length === 0) {
-            msg.payload[b].success = true
+            msg.payload.result[b].success = true
             binpackingsolution++
           }
         }
