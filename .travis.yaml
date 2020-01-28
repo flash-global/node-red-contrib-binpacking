@@ -16,7 +16,7 @@ notifications:
 deploy:
   provider: npm
   email: "lav@yoctu.com"
-  api_key: "81e3eb5f-350a-4c54-8eac-e07c4fc3eb05"
+  api_key: "0acc99fe-348a-4e26-b031-7e5ee56da913"
   edge: true
   on:
     branch: master
