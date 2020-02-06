@@ -1,23 +1,23 @@
 [{
-	"id": "4f7d5d8f.92b414",
+	"id": "21a01ce2.093d34",
 	"type": "tab",
 	"label": "BinPacking Test",
 	"disabled": false,
 	"info": ""
 }, {
-	"id": "30a51df7.1e37c2",
+	"id": "48e958a5.71a7a8",
 	"type": "binpacking",
-	"z": "4f7d5d8f.92b414",
+	"z": "21a01ce2.093d34",
 	"name": "BinPacking",
 	"x": 670,
 	"y": 300,
 	"wires": [
-		["a0a43e10.ac76a", "1b877801.cda408"]
+		["d2f23292.45615", "c2c13d08.29898"]
 	]
 }, {
-	"id": "1c280cc8.c4bea3",
+	"id": "ec6f410a.5ff4b",
 	"type": "function",
-	"z": "4f7d5d8f.92b414",
+	"z": "21a01ce2.093d34",
 	"name": "create payload",
 	"func": "msg.packages = [\n  {\n    name: 'bh',\n    width: 50,\n    height: 60,\n    length: 70,\n    weight: 28,\n    quantity: 10\n  },\n  {\n    name: 'hicham',\n    width: 40,\n    height: 30,\n    length: 80,\n    weight: 48,\n    quantity: 5\n  },  \n  {\n    name: 'vincent',\n    width: 25,\n    height: 50,\n    length: 60,\n    weight: 20,\n    quantity: 8\n  }\n]\n\nmsg.bins = [\n  {\n    name: 'break',\n    width: 100,\n    height: 100,\n    length: 120,\n    weight: 400\n  },\n  {\n    name: 'frg1',\n    width: 120,\n    height: 120,\n    length: 240,\n    weight: 800\n  },  \n  {\n    name: 'frg2',\n    width: 120,\n    height: 150,\n    length: 320,\n    weight: 1200\n  },\n  {\n    name: 'frg3',\n    width: 120,\n    height: 150,\n    length: 420,\n    weight: 1200\n  }, \n  {\n    name: 'frg4',\n    width: 200,\n    height: 200,\n    length: 200,\n    weight: 1000\n  },\n  {\n    name: 'pl5',\n    width: 240,\n    height: 270,\n    length: 600,\n    weight: 3000\n  },\n  {\n    name: 'pl7',\n    width: 240,\n    height: 270,\n    length: 750,\n    weight: 7500\n  },\n  {\n    name: 'semi',\n    width: 240,\n    height: 270,\n    length: 1360,\n    weight: 24000\n  }  \n]\n\nreturn msg;",
 	"outputs": 1,
@@ -25,12 +25,12 @@
 	"x": 360,
 	"y": 280,
 	"wires": [
-		["30a51df7.1e37c2"]
+		["48e958a5.71a7a8"]
 	]
 }, {
-	"id": "ca9f47cc.59e228",
+	"id": "3b1def3f.fc2be",
 	"type": "inject",
-	"z": "4f7d5d8f.92b414",
+	"z": "21a01ce2.093d34",
 	"name": "",
 	"topic": "",
 	"payload": "",
@@ -42,12 +42,12 @@
 	"x": 140,
 	"y": 360,
 	"wires": [
-		["1c280cc8.c4bea3"]
+		["ec6f410a.5ff4b"]
 	]
 }, {
-	"id": "34d0a3c5.9a369c",
+	"id": "366c0dc3.072472",
 	"type": "http response",
-	"z": "4f7d5d8f.92b414",
+	"z": "21a01ce2.093d34",
 	"name": "response",
 	"statusCode": "200",
 	"headers": {},
@@ -55,9 +55,9 @@
 	"y": 240,
 	"wires": []
 }, {
-	"id": "9c5244c4.9f6d78",
+	"id": "ad925b42.19ebb8",
 	"type": "http in",
-	"z": "4f7d5d8f.92b414",
+	"z": "21a01ce2.093d34",
 	"name": "[get] test",
 	"url": "/binpacking",
 	"method": "get",
@@ -66,12 +66,12 @@
 	"x": 140,
 	"y": 260,
 	"wires": [
-		["1c280cc8.c4bea3"]
+		["ec6f410a.5ff4b"]
 	]
 }, {
-	"id": "a0a43e10.ac76a",
+	"id": "d2f23292.45615",
 	"type": "switch",
-	"z": "4f7d5d8f.92b414",
+	"z": "21a01ce2.093d34",
 	"name": "",
 	"property": "res",
 	"propertyType": "msg",
@@ -84,12 +84,12 @@
 	"x": 1070,
 	"y": 240,
 	"wires": [
-		["34d0a3c5.9a369c"]
+		["366c0dc3.072472"]
 	]
 }, {
-	"id": "3b97d00f.87d14",
+	"id": "f2e3531b.13274",
 	"type": "http in",
-	"z": "4f7d5d8f.92b414",
+	"z": "21a01ce2.093d34",
 	"name": "[post] binpacking",
 	"url": "/binpacking",
 	"method": "post",
@@ -98,12 +98,12 @@
 	"x": 340,
 	"y": 120,
 	"wires": [
-		["52672bfc.dc78b4"]
+		["2806d811.074c78"]
 	]
 }, {
-	"id": "52672bfc.dc78b4",
+	"id": "2806d811.074c78",
 	"type": "change",
-	"z": "4f7d5d8f.92b414",
+	"z": "21a01ce2.093d34",
 	"name": "",
 	"rules": [{
 		"t": "set",
@@ -126,21 +126,21 @@
 	"x": 620,
 	"y": 120,
 	"wires": [
-		["30a51df7.1e37c2"]
+		["48e958a5.71a7a8"]
 	]
 }, {
-	"id": "fae0ac7e.c56de",
+	"id": "69cfcd66.ea8654",
 	"type": "comment",
-	"z": "4f7d5d8f.92b414",
+	"z": "21a01ce2.093d34",
 	"name": "Curl Example",
 	"info": "curl -X POST http://localhost:1880/binpacking -H 'Content-type: application/json' -d '{ \"packages\": [ { \"name\": \"bh\", \"width\": 50, \"height\": 60, \"length\": 70, \"weight\": 28, \"quantity\": 3 } ], \"bins\": [ { \"name\": \"break\", \"width\": 100, \"height\": 100, \"length\": 120, \"weight\": 400 } ] }'",
 	"x": 130,
 	"y": 220,
 	"wires": []
 }, {
-	"id": "cbbb1c15.3f089",
+	"id": "1dfc6cb9.4cb5f3",
 	"type": "json",
-	"z": "4f7d5d8f.92b414",
+	"z": "21a01ce2.093d34",
 	"name": "",
 	"property": "payload",
 	"action": "str",
@@ -148,12 +148,12 @@
 	"x": 1030,
 	"y": 460,
 	"wires": [
-		["96f9e113.99ac6"]
+		["5ccb5452.94d3cc"]
 	]
 }, {
-	"id": "96f9e113.99ac6",
+	"id": "5ccb5452.94d3cc",
 	"type": "function",
-	"z": "4f7d5d8f.92b414",
+	"z": "21a01ce2.093d34",
 	"name": "Convert HTML",
 	"func": "msg.payload = msg.payload.replace(/\\n/g, \"<br />\");\nreturn msg;",
 	"outputs": 1,
@@ -161,25 +161,25 @@
 	"x": 1260,
 	"y": 460,
 	"wires": [
-		["3bdeb127.76e6fe"]
+		["98e06457.7305d8"]
 	]
 }, {
-	"id": "1b877801.cda408",
+	"id": "c2c13d08.29898",
 	"type": "function",
-	"z": "4f7d5d8f.92b414",
+	"z": "21a01ce2.093d34",
 	"name": "Output JSON",
-	"func": "for (var i in msg.payload) {\n    if (msg.payload[i].bin) {\n        msg.payload[i].name = msg.payload[i].bin.name\n        msg.payload[i].rotationType = 0\n        for (var j in msg.payload[i].bin.items)\n            msg.payload[i].rotationType += msg.payload[i].bin.items[j].rotationType\n        delete  msg.payload[i].bin\n    }\n    if (msg.rotate === false && msg.payload[i].rotationType > 0) msg.payload[i].succes = false\n}\nreturn msg;",
+	"func": "for (var i in msg.payload.result) {\n    if (msg.payload.result[i].bin) {\n        msg.payload.result[i].name = msg.payload.result[i].bin.name\n        msg.payload.result[i].rotationType = 0\n        for (var j in msg.payload.result[i].bin.items)\n            msg.payload.result[i].rotationType += msg.payload.result[i].bin.items[j].rotationType\n        delete  msg.payload.result[i].bin\n    }\n    if (msg.rotate === false && msg.payload.result[i].rotationType > 0) msg.payload.result[i].succes = false\n}\nreturn msg;",
 	"outputs": 1,
 	"noerr": 0,
 	"x": 870,
 	"y": 460,
 	"wires": [
-		["cbbb1c15.3f089"]
+		["1dfc6cb9.4cb5f3"]
 	]
 }, {
-	"id": "8fc424ec.fcb568",
+	"id": "71a4f3df.ec067c",
 	"type": "change",
-	"z": "4f7d5d8f.92b414",
+	"z": "21a01ce2.093d34",
 	"name": "",
 	"rules": [{
 		"t": "set",
@@ -208,12 +208,12 @@
 	"x": 460,
 	"y": 420,
 	"wires": [
-		["30a51df7.1e37c2"]
+		["48e958a5.71a7a8"]
 	]
 }, {
-	"id": "3bdeb127.76e6fe",
+	"id": "98e06457.7305d8",
 	"type": "ui_toast",
-	"z": "4f7d5d8f.92b414",
+	"z": "21a01ce2.093d34",
 	"position": "dialog",
 	"displayTime": "3",
 	"highlight": "",
@@ -230,9 +230,9 @@
 		[]
 	]
 }, {
-	"id": "926bbcae.d43f",
+	"id": "e73c0a1d.0a9618",
 	"type": "ui_template",
-	"z": "4f7d5d8f.92b414",
+	"z": "21a01ce2.093d34",
 	"group": "a0d518d6.1e7c28",
 	"name": "HTML",
 	"order": 0,
@@ -245,21 +245,21 @@
 	"x": 170,
 	"y": 560,
 	"wires": [
-		["8fc424ec.fcb568"]
+		["71a4f3df.ec067c"]
 	]
 }, {
-	"id": "b11166ad.1cda08",
+	"id": "8b59ede9.801ef",
 	"type": "comment",
-	"z": "4f7d5d8f.92b414",
+	"z": "21a01ce2.093d34",
 	"name": "UI BinPacking",
 	"info": "",
 	"x": 130,
 	"y": 500,
 	"wires": []
 }, {
-	"id": "e08cd1c0.b71d1",
+	"id": "4a6f404c.cab41",
 	"type": "comment",
-	"z": "4f7d5d8f.92b414",
+	"z": "21a01ce2.093d34",
 	"name": "Curl BinPacking",
 	"info": "curl -X POST https://binpacking.yoctu.com/api -H 'Content-type: application/json' -d '{ \"packages\": [ { \"name\": \"bh\", \"width\": 50, \"height\": 60, \"length\": 70, \"weight\": 28, \"quantity\": 3 } ], \"bins\": [ { \"name\": \"break\", \"width\": 100, \"height\": 100, \"length\": 120, \"weight\": 400 } ] }'",
 	"x": 340,
