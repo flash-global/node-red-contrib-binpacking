@@ -1,5 +1,10 @@
 # node-red-contrib-binpacking
 
+[![Build Status](https://api.travis-ci.org/lvenier/node-red-contrib-binpacking.svg?branch=master)](https://travis-ci.org/lvenier/node-red-contrib-binpacking)
+[![npm version](http://img.shields.io/npm/v/node-red-contrib-binpacking.svg?style=flat)](https://npmjs.org/package/node-red-contrib-binpacking "View this project on npm")
+[![Github Issues](http://img.shields.io/github/issues/lvenier/node-red-contrib-binpacking)](https://github.com/lvenier/node-red-contrib-binpacking/issues)
+[![MIT license](http://img.shields.io/badge/license-MIT-brightgreen.svg)](http://opensource.org/licenses/MIT)
+
 node-red-contrib-binpacking is based on the binpackingjs (https://github.com/olragon/binpackingjs) library.
 
 It only supports 3D packing and is primarly designed for logistics purpose.
