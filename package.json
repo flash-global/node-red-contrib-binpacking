@@ -1,6 +1,7 @@
 {
   "author": {
-    "name": "lav@yoctu.com"
+    "name": "lav@yoctu.com",
+    "email": "LaV"
   },
   "bugs": {
     "url": "https://github.com/lvenier/node-red-contrib-binpacking/issues"
@@ -23,6 +24,7 @@
   "keywords": [
     "node-red",
     "binpacking",
+    "yoctu",
     "logistics"
   ],
   "license": "ISC",
@@ -43,5 +45,5 @@
     "lint-fix": "eslint --fix --ext .js index.js",
     "test": "npm run lint"
   },
-  "version": "1.0.7"
+  "version": "1.1.0"
 }
