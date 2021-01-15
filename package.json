@@ -12,10 +12,10 @@
   },
   "devDependencies": {
     "eslint": "*",
+    "eslint-config-standard": "*",
     "eslint-plugin-import": "*",
     "eslint-plugin-node": "*",
     "eslint-plugin-promise": "*",
-    "eslint-config-standard": "*",
     "eslint-plugin-standard": "*"
   },
   "deprecated": false,
@@ -39,7 +39,6 @@
     "type": "git",
     "url": "https://github.com/lvenier/node-red-contrib-binpacking.git"
   },
-  "main": "index.js",
   "scripts": {
     "lint": "eslint --ext .js index.js",
     "lint-fix": "eslint --fix --ext .js index.js",

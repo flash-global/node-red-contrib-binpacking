@@ -27,10 +27,14 @@ It provides 2 examples :
 - timestamp with predefined set of data
 - api get/post to input values
 
+## Execute
+
+- Got to sample folder. 
+- Execute : ```node-red -s settings.js flow.json -u .```
+
 ## Demo
 
-UI : 
-https://binpacking.yoctu.com/ui
+UI : https://binpacking.yoctu.com/ui
 
 API : 
 ```curl -X POST https://binpacking.yoctu.com/api/ -H 'Content-type: application/json' -d '{ "packages": [ { "name": "bh", "width": 50, "height": 60, "length": 70, "weight": 28, "quantity": 3 } ], "bins": [ { "name": "brokenvolvo", "width": 100, "height": 100, "length": 120, "weight": 400 } ] }'```
