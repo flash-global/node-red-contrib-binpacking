@@ -53,7 +53,7 @@ module.exports = function (RED) {
           packer.items.push(...packages)
           packer.pack()
           msg.payload.result[b] = {}
-          msg.payload.result[b].bin = packer.bins[0]
+          msg.payload.result[b].bin = JSON.parse(JSON.stringify(packer.bins[0]))
           msg.payload.result[b].success = false
           if (packer.unfitItems.length === 0) {
             msg.payload.result[b].success = true
