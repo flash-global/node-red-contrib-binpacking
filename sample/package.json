@@ -4,6 +4,7 @@
     "version": "0.0.1",
     "private": true,
     "dependencies": {
+        "binpackingjs": "^2.3.3",
         "node-red-contrib-binpacking": "file:..",
         "node-red-dashboard": "*"
     }
