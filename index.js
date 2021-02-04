@@ -39,7 +39,8 @@ module.exports = function (RED) {
           if (msg.packages[pkg].width && msg.packages[pkg].height && msg.packages[pkg].length && msg.packages[pkg].weight) {
             for (let q = 0; q < msg.packages[pkg].quantity; q++) {
               if (!msg.packages[pkg].name) msg.packages[pkg].name = 'Item'
-              packages.push(new Item(msg.packages[pkg].name + ' ' + q, msg.packages[pkg].width, msg.packages[pkg].height, msg.packages[pkg].length, msg.packages[pkg].weight))
+              if (!msg.packages[pkg].allowedRotation) msg.packages[pkg].allowedRotation = [0, 1, 2, 3, 4, 5]
+              packages.push(new Item(msg.packages[pkg].name + ' ' + q, msg.packages[pkg].width, msg.packages[pkg].height, msg.packages[pkg].length, msg.packages[pkg].weight, msg.packages[pkg].allowedRotation))
             }
           } else BinPackingError(this, 'invalid msg.packages')
         }
