@@ -395,8 +395,8 @@
   },
   "node-red-contrib-binpacking": {
    "name": "node-red-contrib-binpacking",
-   "version": "1.1.2",
-   "local": true,
+   "version": "1.2.1",
+   "local": false,
    "nodes": {
     "binpacking": {
      "name": "binpacking",
@@ -404,7 +404,7 @@
       "binpacking"
      ],
      "enabled": true,
-     "local": true,
+     "local": false,
      "module": "node-red-contrib-binpacking",
      "file": "/var/tmp/node-red-contrib-binpacking/sample/node_modules/node-red-contrib-binpacking/index.js"
     }
