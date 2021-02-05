@@ -7,8 +7,11 @@
     "url": "https://github.com/lvenier/node-red-contrib-binpacking/issues"
   },
   "bundleDependencies": false,
+  "dependencies": {
+    "binpackingjs": "*"
+  },
   "devDependencies": {
-    "binpackingjs": "^2.3.3",
+    "binpackingjs": "*",
     "eslint": "*",
     "eslint-config-standard": "*",
     "eslint-plugin-import": "*",
@@ -40,7 +43,8 @@
   "scripts": {
     "lint": "eslint --ext .js index.js",
     "lint-fix": "eslint --fix --ext .js index.js",
-    "test": "npm run lint"
+    "test": "npm run lint",
+    "start": "node-red -s sample/settings.js sample/flow.json -u sample/"
   },
-  "version": "1.2.1"
+  "version": "1.2.2"
 }
