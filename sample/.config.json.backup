@@ -2,7 +2,7 @@
  "nodes": {
   "node-red": {
    "name": "node-red",
-   "version": "1.0.3",
+   "version": "1.1.3",
    "local": false,
    "nodes": {
     "inject": {
@@ -361,7 +361,7 @@
   },
   "node-red-node-rbe": {
    "name": "node-red-node-rbe",
-   "version": "0.2.5",
+   "version": "0.2.9",
    "local": false,
    "nodes": {
     "rbe": {
@@ -378,7 +378,7 @@
   },
   "node-red-node-tail": {
    "name": "node-red-node-tail",
-   "version": "0.0.3",
+   "version": "0.1.1",
    "local": false,
    "nodes": {
     "tail": {
@@ -395,7 +395,7 @@
   },
   "node-red-contrib-binpacking": {
    "name": "node-red-contrib-binpacking",
-   "version": "1.1.2",
+   "version": "1.2.1",
    "local": true,
    "nodes": {
     "binpacking": {
@@ -406,13 +406,13 @@
      "enabled": true,
      "local": true,
      "module": "node-red-contrib-binpacking",
-     "file": "/var/tmp/node-red-contrib-binpacking/sample/node_modules/node-red-contrib-binpacking/index.js"
+     "file": "/home/lav/node-red-contrib-binpacking/sample/node_modules/node-red-contrib-binpacking/index.js"
     }
    }
   },
   "node-red-dashboard": {
    "name": "node-red-dashboard",
-   "version": "2.26.2",
+   "version": "2.27.0",
    "local": true,
    "nodes": {
     "ui_base": {
@@ -423,7 +423,7 @@
      "enabled": true,
      "local": true,
      "module": "node-red-dashboard",
-     "file": "/var/tmp/node-red-contrib-binpacking/sample/node_modules/node-red-dashboard/nodes/ui_base.js"
+     "file": "/home/lav/node-red-contrib-binpacking/sample/node_modules/node-red-dashboard/nodes/ui_base.js"
     },
     "ui_button": {
      "name": "ui_button",
@@ -433,7 +433,7 @@
      "enabled": true,
      "local": true,
      "module": "node-red-dashboard",
-     "file": "/var/tmp/node-red-contrib-binpacking/sample/node_modules/node-red-dashboard/nodes/ui_button.js"
+     "file": "/home/lav/node-red-contrib-binpacking/sample/node_modules/node-red-dashboard/nodes/ui_button.js"
     },
     "ui_dropdown": {
      "name": "ui_dropdown",
@@ -443,7 +443,7 @@
      "enabled": true,
      "local": true,
      "module": "node-red-dashboard",
-     "file": "/var/tmp/node-red-contrib-binpacking/sample/node_modules/node-red-dashboard/nodes/ui_dropdown.js"
+     "file": "/home/lav/node-red-contrib-binpacking/sample/node_modules/node-red-dashboard/nodes/ui_dropdown.js"
     },
     "ui_switch": {
      "name": "ui_switch",
@@ -453,7 +453,7 @@
      "enabled": true,
      "local": true,
      "module": "node-red-dashboard",
-     "file": "/var/tmp/node-red-contrib-binpacking/sample/node_modules/node-red-dashboard/nodes/ui_switch.js"
+     "file": "/home/lav/node-red-contrib-binpacking/sample/node_modules/node-red-dashboard/nodes/ui_switch.js"
     },
     "ui_slider": {
      "name": "ui_slider",
@@ -463,7 +463,7 @@
      "enabled": true,
      "local": true,
      "module": "node-red-dashboard",
-     "file": "/var/tmp/node-red-contrib-binpacking/sample/node_modules/node-red-dashboard/nodes/ui_slider.js"
+     "file": "/home/lav/node-red-contrib-binpacking/sample/node_modules/node-red-dashboard/nodes/ui_slider.js"
     },
     "ui_numeric": {
      "name": "ui_numeric",
@@ -473,7 +473,7 @@
      "enabled": true,
      "local": true,
      "module": "node-red-dashboard",
-     "file": "/var/tmp/node-red-contrib-binpacking/sample/node_modules/node-red-dashboard/nodes/ui_numeric.js"
+     "file": "/home/lav/node-red-contrib-binpacking/sample/node_modules/node-red-dashboard/nodes/ui_numeric.js"
     },
     "ui_text_input": {
      "name": "ui_text_input",
@@ -483,7 +483,7 @@
      "enabled": true,
      "local": true,
      "module": "node-red-dashboard",
-     "file": "/var/tmp/node-red-contrib-binpacking/sample/node_modules/node-red-dashboard/nodes/ui_text_input.js"
+     "file": "/home/lav/node-red-contrib-binpacking/sample/node_modules/node-red-dashboard/nodes/ui_text_input.js"
     },
     "ui_date_picker": {
      "name": "ui_date_picker",
@@ -493,7 +493,7 @@
      "enabled": true,
      "local": true,
      "module": "node-red-dashboard",
-     "file": "/var/tmp/node-red-contrib-binpacking/sample/node_modules/node-red-dashboard/nodes/ui_date_picker.js"
+     "file": "/home/lav/node-red-contrib-binpacking/sample/node_modules/node-red-dashboard/nodes/ui_date_picker.js"
     },
     "ui_colour_picker": {
      "name": "ui_colour_picker",
@@ -503,7 +503,7 @@
      "enabled": true,
      "local": true,
      "module": "node-red-dashboard",
-     "file": "/var/tmp/node-red-contrib-binpacking/sample/node_modules/node-red-dashboard/nodes/ui_colour_picker.js"
+     "file": "/home/lav/node-red-contrib-binpacking/sample/node_modules/node-red-dashboard/nodes/ui_colour_picker.js"
     },
     "ui_form": {
      "name": "ui_form",
@@ -513,7 +513,7 @@
      "enabled": true,
      "local": true,
      "module": "node-red-dashboard",
-     "file": "/var/tmp/node-red-contrib-binpacking/sample/node_modules/node-red-dashboard/nodes/ui_form.js"
+     "file": "/home/lav/node-red-contrib-binpacking/sample/node_modules/node-red-dashboard/nodes/ui_form.js"
     },
     "ui_text": {
      "name": "ui_text",
@@ -523,7 +523,7 @@
      "enabled": true,
      "local": true,
      "module": "node-red-dashboard",
-     "file": "/var/tmp/node-red-contrib-binpacking/sample/node_modules/node-red-dashboard/nodes/ui_text.js"
+     "file": "/home/lav/node-red-contrib-binpacking/sample/node_modules/node-red-dashboard/nodes/ui_text.js"
     },
     "ui_gauge": {
      "name": "ui_gauge",
@@ -533,7 +533,7 @@
      "enabled": true,
      "local": true,
      "module": "node-red-dashboard",
-     "file": "/var/tmp/node-red-contrib-binpacking/sample/node_modules/node-red-dashboard/nodes/ui_gauge.js"
+     "file": "/home/lav/node-red-contrib-binpacking/sample/node_modules/node-red-dashboard/nodes/ui_gauge.js"
     },
     "ui_chart": {
      "name": "ui_chart",
@@ -543,7 +543,7 @@
      "enabled": true,
      "local": true,
      "module": "node-red-dashboard",
-     "file": "/var/tmp/node-red-contrib-binpacking/sample/node_modules/node-red-dashboard/nodes/ui_chart.js"
+     "file": "/home/lav/node-red-contrib-binpacking/sample/node_modules/node-red-dashboard/nodes/ui_chart.js"
     },
     "ui_audio": {
      "name": "ui_audio",
@@ -553,7 +553,7 @@
      "enabled": true,
      "local": true,
      "module": "node-red-dashboard",
-     "file": "/var/tmp/node-red-contrib-binpacking/sample/node_modules/node-red-dashboard/nodes/ui_audio.js"
+     "file": "/home/lav/node-red-contrib-binpacking/sample/node_modules/node-red-dashboard/nodes/ui_audio.js"
     },
     "ui_toast": {
      "name": "ui_toast",
@@ -563,7 +563,7 @@
      "enabled": true,
      "local": true,
      "module": "node-red-dashboard",
-     "file": "/var/tmp/node-red-contrib-binpacking/sample/node_modules/node-red-dashboard/nodes/ui_toast.js"
+     "file": "/home/lav/node-red-contrib-binpacking/sample/node_modules/node-red-dashboard/nodes/ui_toast.js"
     },
     "ui_ui_control": {
      "name": "ui_ui_control",
@@ -573,7 +573,7 @@
      "enabled": true,
      "local": true,
      "module": "node-red-dashboard",
-     "file": "/var/tmp/node-red-contrib-binpacking/sample/node_modules/node-red-dashboard/nodes/ui_ui_control.js"
+     "file": "/home/lav/node-red-contrib-binpacking/sample/node_modules/node-red-dashboard/nodes/ui_ui_control.js"
     },
     "ui_template": {
      "name": "ui_template",
@@ -583,7 +583,7 @@
      "enabled": true,
      "local": true,
      "module": "node-red-dashboard",
-     "file": "/var/tmp/node-red-contrib-binpacking/sample/node_modules/node-red-dashboard/nodes/ui_template.js"
+     "file": "/home/lav/node-red-contrib-binpacking/sample/node_modules/node-red-dashboard/nodes/ui_template.js"
     },
     "ui_link": {
      "name": "ui_link",
@@ -593,7 +593,7 @@
      "enabled": true,
      "local": true,
      "module": "node-red-dashboard",
-     "file": "/var/tmp/node-red-contrib-binpacking/sample/node_modules/node-red-dashboard/nodes/ui_link.js"
+     "file": "/home/lav/node-red-contrib-binpacking/sample/node_modules/node-red-dashboard/nodes/ui_link.js"
     },
     "ui_tab": {
      "name": "ui_tab",
@@ -603,7 +603,7 @@
      "enabled": true,
      "local": true,
      "module": "node-red-dashboard",
-     "file": "/var/tmp/node-red-contrib-binpacking/sample/node_modules/node-red-dashboard/nodes/ui_tab.js"
+     "file": "/home/lav/node-red-contrib-binpacking/sample/node_modules/node-red-dashboard/nodes/ui_tab.js"
     },
     "ui_group": {
      "name": "ui_group",
@@ -613,7 +613,7 @@
      "enabled": true,
      "local": true,
      "module": "node-red-dashboard",
-     "file": "/var/tmp/node-red-contrib-binpacking/sample/node_modules/node-red-dashboard/nodes/ui_group.js"
+     "file": "/home/lav/node-red-contrib-binpacking/sample/node_modules/node-red-dashboard/nodes/ui_group.js"
     },
     "ui_spacer": {
      "name": "ui_spacer",
@@ -623,10 +623,24 @@
      "enabled": true,
      "local": true,
      "module": "node-red-dashboard",
-     "file": "/var/tmp/node-red-contrib-binpacking/sample/node_modules/node-red-dashboard/nodes/ui_spacer.js"
+     "file": "/home/lav/node-red-contrib-binpacking/sample/node_modules/node-red-dashboard/nodes/ui_spacer.js"
     }
    }
   }
  },
- "_credentialSecret": "7b064871c42d1c339425ef41e1b37785b13e63449c98cb32a21bf3332823f790"
+ "_credentialSecret": "7b064871c42d1c339425ef41e1b37785b13e63449c98cb32a21bf3332823f790",
+ "users": {
+  "_": {
+   "editor": {
+    "view": {
+     "view-show-grid": true,
+     "view-snap-grid": true,
+     "view-grid-size": 20,
+     "view-node-status": true,
+     "view-node-show-label": true,
+     "view-show-tips": true
+    }
+   }
+  }
+ }
 }
