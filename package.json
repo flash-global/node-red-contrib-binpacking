@@ -46,5 +46,5 @@
     "test": "npm run lint",
     "start": "node-red -s sample/settings.js sample/flow.json -u sample/"
   },
-  "version": "1.2.2"
+  "version": "1.2.3"
 }
