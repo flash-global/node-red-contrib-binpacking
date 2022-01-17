@@ -17,7 +17,9 @@
     "eslint-plugin-import": "*",
     "eslint-plugin-node": "*",
     "eslint-plugin-promise": "*",
-    "eslint-plugin-standard": "*"
+    "eslint-plugin-standard": "*",
+    "jest": "^27.4.7",
+    "supertest": "^6.2.1"
   },
   "deprecated": false,
   "description": "node-red bin packing",
@@ -43,7 +45,7 @@
   "scripts": {
     "lint": "eslint --ext .js index.js",
     "lint-fix": "eslint --fix --ext .js index.js",
-    "test": "npm run lint",
+    "test": "jest",
     "start": "node-red -s sample/settings.js sample/flow.json -u sample/"
   },
   "version": "1.2.3"
