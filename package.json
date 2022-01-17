@@ -45,7 +45,8 @@
   "scripts": {
     "lint": "eslint --ext .js index.js",
     "lint-fix": "eslint --fix --ext .js index.js",
-    "test": "jest",
+    "jest": "jest",
+    "test": "npm run lint && jest",
     "start": "node-red -s sample/settings.js sample/flow.json -u sample/"
   },
   "version": "1.2.3"
