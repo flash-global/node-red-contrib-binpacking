@@ -61,7 +61,8 @@ module.exports = function (RED) {
                   item: new Item(
                     msg.packages[pkg].name + ' ' + q, msg.packages[pkg].width,
                     msg.packages[pkg].height, msg.packages[pkg].length,
-                    msg.packages[pkg].weight, msg.packages[pkg].allowedRotation),
+                    msg.packages[pkg].weight, msg.packages[pkg].allowedRotation
+                  ),
                   stackable: msg.packages[pkg].stackable
                 }
               )
