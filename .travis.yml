@@ -10,5 +10,5 @@ before_script:
 import:
     - source: flash-global/travis:js/common.yml@master
       mode: deep_merge_prepend
-    - source: publish_npm.ymll@master
+    - source: flash-global/travis:publish_npm.ymll@master
       mode: deep_merge_prepend
