@@ -4,7 +4,7 @@
     "email": "LaV"
   },
   "bugs": {
-    "url": "https://github.com/lvenier/node-red-contrib-binpacking/issues"
+    "url": "https://github.com/yoctu/node-red-contrib-binpacking/issues"
   },
   "bundleDependencies": false,
   "dependencies": {
@@ -23,7 +23,7 @@
   },
   "deprecated": false,
   "description": "node-red bin packing",
-  "homepage": "https://github.com/lvenier/node-red-contrib-binpacking#readme",
+  "homepage": "https://github.com/yoctu/node-red-contrib-binpacking#readme",
   "keywords": [
     "node-red",
     "binpacking",
@@ -40,7 +40,7 @@
   },
   "repository": {
     "type": "git",
-    "url": "https://github.com/lvenier/node-red-contrib-binpacking.git"
+    "url": "https://github.com/yoctu/node-red-contrib-binpacking.git"
   },
   "scripts": {
     "lint": "eslint --ext .js index.js",
