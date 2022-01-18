@@ -49,7 +49,7 @@ module.exports = function (RED) {
       if (msg.packages && msg.packages.length > 0) {
         for (const pkg in msg.packages) {
           if (!msg.packages[pkg].quantity) msg.packages[pkg].quantity = 1
-          if (!Object.prototype.hasOwnProperty.call(msg.packages[pkg], 'stackable')) {
+          if (typeof msg.packages[pkg].stackable === 'undefined') {
             msg.packages[pkg].stackable = '1'
           }
           if (msg.packages[pkg].width && msg.packages[pkg].height && msg.packages[pkg].length && msg.packages[pkg].weight) {
@@ -58,7 +58,8 @@ module.exports = function (RED) {
               if (!msg.packages[pkg].allowedRotation) msg.packages[pkg].allowedRotation = [0, 1, 2, 3, 4, 5]
               packages.push(
                 {
-                  item: new Item(msg.packages[pkg].name + ' ' + q, msg.packages[pkg].width,
+                  item: new Item(
+                    msg.packages[pkg].name + ' ' + q, msg.packages[pkg].width,
                     msg.packages[pkg].height, msg.packages[pkg].length,
                     msg.packages[pkg].weight, msg.packages[pkg].allowedRotation),
                   stackable: msg.packages[pkg].stackable
@@ -102,5 +103,6 @@ module.exports = function (RED) {
       node.send(msg)
     })
   }
+
   RED.nodes.registerType('binpacking', BinPackingNode)
 }
