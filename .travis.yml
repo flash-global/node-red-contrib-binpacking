@@ -3,6 +3,7 @@ node_js:
   - 12
 
 before_script:
+- npm install -g --unsafe-perm node-red
 - npm run start
     
 import:
