@@ -1,14 +1,25 @@
 language: node_js
 node_js:
-  - 12
+  - 14
+
+install:
+  - npm install
 
 before_script:
-- npm install -g --unsafe-perm node-red
-- cd sample && npm install && cd ..
-- npm run start &
-    
-import:
-    - source: flash-global/travis:js/common.yml@master
-      mode: deep_merge_prepend
-    - source: flash-global/travis:publish_npm.yml@master
-      mode: deep_merge_prepend
+  - npm install -g --unsafe-perm node-red
+  - cd sample && npm install && cd ..
+  - npm run start &
+
+script:
+  - npm test
+
+before_deploy:
+  - npm --no-git-tag-version --allow-same-version version $TRAVIS_TAG
+
+deploy:
+  - provider: npm
+    skip_cleanup: true
+    email: $npm_mail
+    api_key: $npm_key
+    on:
+      tags: true
