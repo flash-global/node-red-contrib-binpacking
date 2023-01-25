@@ -32,7 +32,7 @@
   ],
   "license": "ISC",
   "main": "index.js",
-  "name": "node-red-contrib-binpacking",
+  "name": "@redspher2021/node-red-contrib-binpacking",
   "node-red": {
     "nodes": {
       "binpacking": "index.js"
