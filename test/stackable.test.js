@@ -35,7 +35,7 @@ const data = {
 }
 
 describe('Test related to binpacking', () => {
-  test('fail test', async () => {
+  test('package should fit in the second bin', async () => {
     const response = await request(`${hostDemo}`).post('/').send(data)
     expect(response.body.result[1].success).toBe(true)
   })
