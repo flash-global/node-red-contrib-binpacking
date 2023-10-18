@@ -12,6 +12,11 @@ module.exports = function (RED) {
     const adaptedPackages = []
 
     packages.forEach((pkg) => {
+      if (pkg.item.originale_height) {
+        pkg.item.height = pkg.item.originale_height;
+      } else {
+        pkg.item.originale_height = pkg.item.height;
+      }
       if (pkg.stackable === 'no' && pkg.item.height < bin.height) {
         pkg.item.height = bin.height
       }
