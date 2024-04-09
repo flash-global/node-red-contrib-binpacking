@@ -61,7 +61,7 @@ module.exports = function (RED) {
             for (let q = 0; q < msg.packages[pkg].quantity; q++) {
               if (!msg.packages[pkg].name) msg.packages[pkg].name = 'Item'
               if (!msg.packages[pkg].allowedRotation) msg.packages[pkg].allowedRotation = [0, 1, 2, 3, 4, 5]
-              if (msg.packages[pkg].type === 'pallet') msg.packages[pkg].allowedRotation = [0, 2]
+              if (msg.packages[pkg].type.toLowerCase() === 'pallet') msg.packages[pkg].allowedRotation = [0, 2]
               packages.push(
                 {
                   item: new Item(
