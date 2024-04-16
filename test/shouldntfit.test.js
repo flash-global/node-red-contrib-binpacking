@@ -13,7 +13,7 @@ const data = {
   ],
   packages: [
     {
-      type: 'pallet',
+      package_type: 'pallet',
       quantity: 8,
       length: 120,
       width: 80,
@@ -21,7 +21,8 @@ const data = {
       weight: 55,
       stackable: '4',
       allowedRotation: [
-        0, 2
+        0,
+        3
       ]
     },
     {
@@ -30,11 +31,11 @@ const data = {
       width: 80,
       height: 100,
       weight: 55,
-      type: 'pallet',
+      package_type: 'pallet',
       stackable: '4',
       allowedRotation: [
         0,
-        2
+        3
       ]
     },
     {
@@ -43,11 +44,11 @@ const data = {
       width: 80,
       height: 100,
       weight: 55,
-      type: 'pallet',
+      package_type: 'pallet',
       stackable: '4',
       allowedRotation: [
         0,
-        2
+        3
       ]
     }
   ]
