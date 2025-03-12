@@ -8,22 +8,44 @@ module.exports = function (RED) {
     node.error(msg)
   }
 
-  function checkStackable (bin, packages) {
-    const adaptedPackages = []
+  function checkStackable(bin, packages) {
+    const adaptedPackages = [];
 
     packages.forEach((pkg) => {
-      if (pkg.item.originale_height) {
-        pkg.item.height = pkg.item.originale_height
-      } else {
-        pkg.item.originale_height = pkg.item.height
-      }
-      if (pkg.stackable === 'no' && pkg.item.height < bin.height) {
-        pkg.item.height = bin.height
-      }
-      adaptedPackages.push(pkg.item)
-    })
-    return adaptedPackages
-  }
+        const { item, stackable } = pkg;
+
+        if (item.originale_height) {
+            item.height = item.originale_height;
+        } else {
+            item.originale_height = item.height;
+        }
+
+        if (stackable === 'no' || stackable === '1') {
+            if (item.height < bin.height) {
+                item.height = bin.height;
+            }
+        } else if (stackable === '2') {
+            const minHeight = bin.height / 2;
+            if (item.height < minHeight) {
+                item.height = minHeight;
+            }
+        } else if (stackable === '3') {
+            const minHeight = bin.height / 3;
+            if (item.height < minHeight) {
+                item.height = minHeight;
+            }
+        } else if (stackable === '4') {
+            const minHeight = bin.height / 4;
+            if (item.height < minHeight) {
+                item.height = minHeight;
+            }
+        }
+
+        adaptedPackages.push(item);
+    });
+
+    return adaptedPackages;
+}
 
   function BinPackingNode (config) {
     RED.nodes.createNode(this, config)
