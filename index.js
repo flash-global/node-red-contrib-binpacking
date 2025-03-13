@@ -25,17 +25,17 @@ module.exports = function (RED) {
           item.height = bin.height
         }
       } else if (stackable === '2') {
-        const minHeight = bin.height / 2
+        const minHeight = Math.floor(bin.height / 2)
         if (item.height < minHeight) {
           item.height = minHeight
         }
       } else if (stackable === '3') {
-        const minHeight = bin.height / 3
+        const minHeight = Math.floor(bin.height / 3)
         if (item.height < minHeight) {
           item.height = minHeight
         }
       } else if (stackable === '4') {
-        const minHeight = bin.height / 4
+        const minHeight = Math.floor(bin.height / 4)
         if (item.height < minHeight) {
           item.height = minHeight
         }
