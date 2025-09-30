@@ -107,6 +107,56 @@ module.exports = function (RED) {
           packer.items.push(...checkStackable(bins[b], packages))
           packer.pack()
           msg.payload.result[b] = {}
+
+          // Compute metrics
+          const binInst = packer.bins[0]
+          const binWidth = binInst.getWidth()
+          const binHeight = binInst.getHeight()
+          const binDepth = binInst.getDepth()
+          const binVolume = binInst.getVolume()
+          const maxWeight = binInst.getMaxWeight()
+
+          let usedX = 0
+          let usedY = 0
+          let usedZ = 0
+          let usedVolume = 0
+          if (binInst.items && binInst.items.length > 0) {
+            for (let i = 0; i < binInst.items.length; i++) {
+              const it = binInst.items[i]
+              const dim = it.getDimension()
+              const pos = it.position
+              const extentX = (pos && pos[0] ? pos[0] : 0) + dim[0]
+              const extentY = (pos && pos[1] ? pos[1] : 0) + dim[1]
+              const extentZ = (pos && pos[2] ? pos[2] : 0) + dim[2]
+              if (extentX > usedX) usedX = extentX
+              if (extentY > usedY) usedY = extentY
+              if (extentZ > usedZ) usedZ = extentZ
+              usedVolume += it.getVolume()
+            }
+          }
+
+          const availableWidth = Math.max(0, binWidth - usedX)
+          const availableHeight = Math.max(0, binHeight - usedY)
+          const availableDepth = Math.max(0, binDepth - usedZ)
+          const availableVolume = Math.max(0, binVolume - usedVolume)
+          const availableWeight = Math.max(0, maxWeight - binInst.getPackedWeight())
+
+          const round2 = (v) => Number(v.toFixed(2))
+
+          const metrics = {
+            available_volume: availableVolume,
+            available_length: availableDepth,
+            available_height: availableHeight,
+            available_depth: availableWidth,
+            available_weight: availableWeight,
+            percentage_available_volume: round2(binVolume > 0 ? (availableVolume / binVolume) : 0),
+            percentage_available_length: round2(binDepth > 0 ? (availableDepth / binDepth) : 0),
+            percentage_available_height: round2(binHeight > 0 ? (availableHeight / binHeight) : 0),
+            percentage_available_depth: round2(binWidth > 0 ? (availableWidth / binWidth) : 0),
+            percentage_available_weight: round2(maxWeight > 0 ? (availableWeight / maxWeight) : 0)
+          }
+
+          msg.payload.result[b].metrics = metrics
           msg.payload.result[b].bin = JSON.parse(JSON.stringify(packer.bins[0]))
           msg.payload.result[b].success = false
           if (packer.unfitItems.length === 0) {

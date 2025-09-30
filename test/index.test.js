@@ -31,11 +31,59 @@ describe('Test related to binpacking', () => {
   test('If stackable no and bin height > item height and have 1 quantity', async () => {
     const response = await request(`${hostDemo}`).post('/').send(data)
     expect(response.body.result[0].success).toBe(true)
+    const metrics = response.body.result[0].metrics
+    const bin = response.body.result[0].bin
+    const binWidth = bin.width
+    const binHeight = bin.height
+    const binDepth = bin.depth
+    const binVolumeScaled = (binWidth * binHeight * binDepth)
+    const wScaled = binWidth
+    const hScaled = binHeight
+    const dScaled = binDepth
+    const maxWeightScaled = bin.maxWeight
+    expect(metrics).toBeDefined()
+    expect(metrics.available_volume).toBeGreaterThanOrEqual(0)
+    expect(metrics.available_volume).toBeLessThanOrEqual(binVolumeScaled)
+    expect(metrics.available_length).toBeGreaterThanOrEqual(0)
+    expect(metrics.available_length).toBeLessThanOrEqual(dScaled)
+    expect(metrics.available_height).toBeGreaterThanOrEqual(0)
+    expect(metrics.available_height).toBeLessThanOrEqual(hScaled)
+    expect(metrics.available_depth).toBeGreaterThanOrEqual(0)
+    expect(metrics.available_depth).toBeLessThanOrEqual(wScaled)
+    expect(metrics.available_weight).toBeGreaterThanOrEqual(0)
+    expect(metrics.available_weight).toBeLessThanOrEqual(maxWeightScaled)
+    expect(metrics.percentage_available_volume).toBeGreaterThanOrEqual(0)
+    expect(metrics.percentage_available_volume).toBeLessThanOrEqual(1)
+    expect(metrics.percentage_available_length).toBeGreaterThanOrEqual(0)
+    expect(metrics.percentage_available_length).toBeLessThanOrEqual(1)
+    expect(metrics.percentage_available_height).toBeGreaterThanOrEqual(0)
+    expect(metrics.percentage_available_height).toBeLessThanOrEqual(1)
+    expect(metrics.percentage_available_depth).toBeGreaterThanOrEqual(0)
+    expect(metrics.percentage_available_depth).toBeLessThanOrEqual(1)
+    expect(metrics.percentage_available_weight).toBeGreaterThanOrEqual(0)
+    expect(metrics.percentage_available_weight).toBeLessThanOrEqual(1)
   })
 
   test('If stackable no and bin height > item height and have 2 quantity', async () => {
     data.packages[0].quantity = 2
     const response = await request(`${hostDemo}`).post('/').send(data)
     expect(response.body.result[0].success).toBe(false)
+    const metrics = response.body.result[0].metrics
+    expect(metrics).toBeDefined()
+    expect(metrics.available_volume).toBeGreaterThanOrEqual(0)
+    expect(metrics.available_length).toBeGreaterThanOrEqual(0)
+    expect(metrics.available_height).toBeGreaterThanOrEqual(0)
+    expect(metrics.available_depth).toBeGreaterThanOrEqual(0)
+    expect(metrics.available_weight).toBeGreaterThanOrEqual(0)
+    expect(metrics.percentage_available_volume).toBeGreaterThanOrEqual(0)
+    expect(metrics.percentage_available_volume).toBeLessThanOrEqual(1)
+    expect(metrics.percentage_available_length).toBeGreaterThanOrEqual(0)
+    expect(metrics.percentage_available_length).toBeLessThanOrEqual(1)
+    expect(metrics.percentage_available_height).toBeGreaterThanOrEqual(0)
+    expect(metrics.percentage_available_height).toBeLessThanOrEqual(1)
+    expect(metrics.percentage_available_depth).toBeGreaterThanOrEqual(0)
+    expect(metrics.percentage_available_depth).toBeLessThanOrEqual(1)
+    expect(metrics.percentage_available_weight).toBeGreaterThanOrEqual(0)
+    expect(metrics.percentage_available_weight).toBeLessThanOrEqual(1)
   })
 })
