@@ -43,31 +43,21 @@ describe('Test related to binpacking', () => {
     const binWidth = bin.width
     const binHeight = bin.height
     const binDepth = bin.depth
-    const binVolumeScaled = (binWidth * binHeight * binDepth)
     const wScaled = binWidth
     const hScaled = binHeight
     const dScaled = binDepth
     const maxWeightScaled = bin.maxWeight
+    const binVolumeScaled = binWidth * binHeight * binDepth
     expect(metrics).toBeDefined()
-    expect(metrics.available_volume).toBeGreaterThanOrEqual(0)
-    expect(metrics.available_volume).toBeLessThanOrEqual(binVolumeScaled)
-    expect(metrics.available_length).toBeGreaterThanOrEqual(0)
-    expect(metrics.available_length).toBeLessThanOrEqual(dScaled)
+    expect(metrics.available_width).toBeGreaterThanOrEqual(0)
+    expect(metrics.available_width).toBeLessThanOrEqual(wScaled)
+    expect(metrics.available_depth).toBeGreaterThanOrEqual(0)
+    expect(metrics.available_depth).toBeLessThanOrEqual(dScaled)
     expect(metrics.available_height).toBeGreaterThanOrEqual(0)
     expect(metrics.available_height).toBeLessThanOrEqual(hScaled)
-    expect(metrics.available_depth).toBeGreaterThanOrEqual(0)
-    expect(metrics.available_depth).toBeLessThanOrEqual(wScaled)
+    expect(metrics.available_volume).toBeGreaterThanOrEqual(0)
+    expect(metrics.available_volume).toBeLessThanOrEqual(binVolumeScaled)
     expect(metrics.available_weight).toBeGreaterThanOrEqual(0)
     expect(metrics.available_weight).toBeLessThanOrEqual(maxWeightScaled)
-    expect(metrics.percentage_available_volume).toBeGreaterThanOrEqual(0)
-    expect(metrics.percentage_available_volume).toBeLessThanOrEqual(1)
-    expect(metrics.percentage_available_length).toBeGreaterThanOrEqual(0)
-    expect(metrics.percentage_available_length).toBeLessThanOrEqual(1)
-    expect(metrics.percentage_available_height).toBeGreaterThanOrEqual(0)
-    expect(metrics.percentage_available_height).toBeLessThanOrEqual(1)
-    expect(metrics.percentage_available_depth).toBeGreaterThanOrEqual(0)
-    expect(metrics.percentage_available_depth).toBeLessThanOrEqual(1)
-    expect(metrics.percentage_available_weight).toBeGreaterThanOrEqual(0)
-    expect(metrics.percentage_available_weight).toBeLessThanOrEqual(1)
   })
 })

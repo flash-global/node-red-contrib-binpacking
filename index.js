@@ -141,19 +141,12 @@ module.exports = function (RED) {
           const availableVolume = Math.max(0, binVolume - usedVolume)
           const availableWeight = Math.max(0, maxWeight - binInst.getPackedWeight())
 
-          const round2 = (v) => Number(v.toFixed(2))
-
           const metrics = {
             available_volume: availableVolume,
-            available_length: availableDepth,
+            available_width: availableWidth,
             available_height: availableHeight,
-            available_depth: availableWidth,
-            available_weight: availableWeight,
-            percentage_available_volume: round2(binVolume > 0 ? (availableVolume / binVolume) : 0),
-            percentage_available_length: round2(binDepth > 0 ? (availableDepth / binDepth) : 0),
-            percentage_available_height: round2(binHeight > 0 ? (availableHeight / binHeight) : 0),
-            percentage_available_depth: round2(binWidth > 0 ? (availableWidth / binWidth) : 0),
-            percentage_available_weight: round2(maxWeight > 0 ? (availableWeight / maxWeight) : 0)
+            available_depth: availableDepth,
+            available_weight: availableWeight
           }
 
           msg.payload.result[b].metrics = metrics
