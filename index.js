@@ -47,6 +47,35 @@ module.exports = function (RED) {
     return adaptedPackages
   }
 
+  // Convert scaled BP3D volumes (dims scaled by 1e5 ⇒ volume scaled by 1e15)
+  const VOLUME_SCALE = 1e15
+  function toUnitsVolume (v) {
+    if (typeof v !== 'number' || !Number.isFinite(v) || v <= 0) {
+      return 0
+    }
+    const unscaled = v / VOLUME_SCALE
+    if (!Number.isFinite(unscaled)) {
+      return 0
+    }
+    // Round to 3 decimals to preserve small volumes (e.g., 0.003)
+    const rounded = Number(unscaled.toFixed(3))
+    return rounded > 0 ? rounded : 0
+  }
+
+  // Convert scaled BP3D weights (weights scaled by 1e5)
+  const WEIGHT_SCALE = 1e5
+  function toUnitsWeight (v) {
+    if (typeof v !== 'number' || !Number.isFinite(v) || v <= 0) {
+      return 0
+    }
+    const unscaled = v / WEIGHT_SCALE
+    if (!Number.isFinite(unscaled)) {
+      return 0
+    }
+    const rounded = Number(unscaled.toFixed(2))
+    return rounded > 0 ? rounded : 0
+  }
+
   function BinPackingNode (config) {
     RED.nodes.createNode(this, config)
     const node = this
@@ -73,6 +102,8 @@ module.exports = function (RED) {
 
       // Packages Setup
       const packages = []
+      // Track original total volume from input packages (pre-stackable), in scaled units (×1e15)
+      let usedVolumeOriginal = 0
       if (msg.packages && msg.packages.length > 0) {
         for (const pkg in msg.packages) {
           if (!msg.packages[pkg].quantity) msg.packages[pkg].quantity = 1
@@ -80,6 +111,14 @@ module.exports = function (RED) {
             msg.packages[pkg].stackable = '1'
           }
           if (msg.packages[pkg].width && msg.packages[pkg].height && msg.packages[pkg].length && msg.packages[pkg].weight) {
+            // Accumulate original volume in scaled integer units to match BP3D math
+            // (dims × 1e5 ⇒ volume × 1e15), then we scale back via toUnitsVolume
+            const quantity = msg.packages[pkg].quantity
+            const scaledWidth = Math.round(msg.packages[pkg].width * 1e5)
+            const scaledHeight = Math.round(msg.packages[pkg].height * 1e5)
+            const scaledDepth = Math.round(msg.packages[pkg].length * 1e5)
+            usedVolumeOriginal += (scaledWidth * scaledHeight * scaledDepth) * quantity
+
             for (let q = 0; q < msg.packages[pkg].quantity; q++) {
               if (!msg.packages[pkg].name) msg.packages[pkg].name = 'Item'
               if (!msg.packages[pkg].allowedRotation) msg.packages[pkg].allowedRotation = [0, 1, 2, 3, 4, 5]
@@ -110,43 +149,18 @@ module.exports = function (RED) {
 
           // Compute metrics
           const binInst = packer.bins[0]
-          const binWidth = binInst.getWidth()
-          const binHeight = binInst.getHeight()
-          const binDepth = binInst.getDepth()
           const binVolume = binInst.getVolume()
           const maxWeight = binInst.getMaxWeight()
 
-          let usedX = 0
-          let usedY = 0
-          let usedZ = 0
-          let usedVolume = 0
-          if (binInst.items && binInst.items.length > 0) {
-            for (let i = 0; i < binInst.items.length; i++) {
-              const it = binInst.items[i]
-              const dim = it.getDimension()
-              const pos = it.position
-              const extentX = (pos && pos[0] ? pos[0] : 0) + dim[0]
-              const extentY = (pos && pos[1] ? pos[1] : 0) + dim[1]
-              const extentZ = (pos && pos[2] ? pos[2] : 0) + dim[2]
-              if (extentX > usedX) usedX = extentX
-              if (extentY > usedY) usedY = extentY
-              if (extentZ > usedZ) usedZ = extentZ
-              usedVolume += it.getVolume()
-            }
-          }
-
-          const availableWidth = Math.max(0, binWidth - usedX)
-          const availableHeight = Math.max(0, binHeight - usedY)
-          const availableDepth = Math.max(0, binDepth - usedZ)
-          const availableVolume = Math.max(0, binVolume - usedVolume)
-          const availableWeight = Math.max(0, maxWeight - binInst.getPackedWeight())
-
           const metrics = {
-            available_volume: availableVolume,
-            available_width: availableWidth,
-            available_height: availableHeight,
-            available_depth: availableDepth,
-            available_weight: availableWeight
+            // it retuns same unit as the input; example: if input is cm, it returns cm3
+            usedVolume: toUnitsVolume(usedVolumeOriginal),
+            totalVolume: toUnitsVolume(binVolume),
+            availableVolume: toUnitsVolume(binVolume - usedVolumeOriginal),
+            // it retuns same unit as the input; example: if input is kg, it returns kg
+            usedWeight: toUnitsWeight(binInst.getPackedWeight()),
+            totalWeight: toUnitsWeight(maxWeight),
+            availableWeight: toUnitsWeight(maxWeight) - toUnitsWeight(binInst.getPackedWeight())
           }
 
           msg.payload.result[b].metrics = metrics
