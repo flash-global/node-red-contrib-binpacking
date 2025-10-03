@@ -102,8 +102,6 @@ module.exports = function (RED) {
 
       // Packages Setup
       const packages = []
-      // Track original total volume from input packages (pre-stackable), in scaled units (×1e15)
-      let usedVolumeOriginal = 0
       if (msg.packages && msg.packages.length > 0) {
         for (const pkg in msg.packages) {
           if (!msg.packages[pkg].quantity) msg.packages[pkg].quantity = 1
@@ -111,14 +109,6 @@ module.exports = function (RED) {
             msg.packages[pkg].stackable = '1'
           }
           if (msg.packages[pkg].width && msg.packages[pkg].height && msg.packages[pkg].length && msg.packages[pkg].weight) {
-            // Accumulate original volume in scaled integer units to match BP3D math
-            // (dims × 1e5 ⇒ volume × 1e15), then we scale back via toUnitsVolume
-            const quantity = msg.packages[pkg].quantity
-            const scaledWidth = Math.round(msg.packages[pkg].width * 1e5)
-            const scaledHeight = Math.round(msg.packages[pkg].height * 1e5)
-            const scaledDepth = Math.round(msg.packages[pkg].length * 1e5)
-            usedVolumeOriginal += (scaledWidth * scaledHeight * scaledDepth) * quantity
-
             for (let q = 0; q < msg.packages[pkg].quantity; q++) {
               if (!msg.packages[pkg].name) msg.packages[pkg].name = 'Item'
               if (!msg.packages[pkg].allowedRotation) msg.packages[pkg].allowedRotation = [0, 1, 2, 3, 4, 5]
@@ -152,11 +142,14 @@ module.exports = function (RED) {
           const binVolume = binInst.getVolume()
           const maxWeight = binInst.getMaxWeight()
 
+          // sum the total item's volumes (post-stackability) in scaled units
+          const usedVolumeScaled = binInst.items.reduce((total, item) => total + item.getVolume(), 0)
+
           const metrics = {
             // it retuns same unit as the input; example: if input is cm, it returns cm3
-            usedVolume: toUnitsVolume(usedVolumeOriginal),
+            usedVolume: toUnitsVolume(usedVolumeScaled),
             totalVolume: toUnitsVolume(binVolume),
-            availableVolume: toUnitsVolume(binVolume - usedVolumeOriginal),
+            availableVolume: toUnitsVolume(binVolume - usedVolumeScaled),
             // it retuns same unit as the input; example: if input is kg, it returns kg
             usedWeight: toUnitsWeight(binInst.getPackedWeight()),
             totalWeight: toUnitsWeight(maxWeight),
