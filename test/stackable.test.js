@@ -41,11 +41,11 @@ describe('Test related to binpacking', () => {
     const metrics = response.body.result[1].metrics
     expect(metrics).toBeDefined()
 
-    // usedVolume reflects original package dims (pre-stackable): 60 * 60 * 70
+    // usedVolume reflects post-stackability dims: 60 * 100 * 70 (height raised)
     const expected = {
-      usedVolume: 252000.000, // 60 * 60 * 70
+      usedVolume: 420000.000, // 60 * 100 * 70
       totalVolume: 1200000.000, // 100 * 100 * 120
-      availableVolume: 948000.000, // 1200000 - 252000
+      availableVolume: 780000.000, // 1200000 - 420000
       usedWeight: 28.00, // 28
       totalWeight: 400.00, // 400
       availableWeight: 372.00 // 400 - 28
