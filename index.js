@@ -128,17 +128,68 @@ module.exports = function (RED) {
         }
       } else BinPackingError(this, 'missing msg.packages')
 
+      // Helper: build a fresh packer with new Bin/Item objects for a given bin index
+      function buildAndPack (binIdx, rotationOverride) {
+        const b = msg.bins[binIdx]
+        const bin = new Bin(
+          (b.name || 'vehicle') + ' ' + binIdx,
+          parseInt(b.width), parseInt(b.height),
+          parseInt(b.length), parseInt(b.weight)
+        )
+        const pkgs = []
+        for (const p in msg.packages) {
+          const mp = msg.packages[p]
+          const qty = mp.quantity || 1
+          const stackable = typeof mp.stackable === 'undefined' ? '1' : mp.stackable
+          const rotation = rotationOverride || mp.allowedRotation || [0, 1, 2, 3, 4, 5]
+          for (let q = 0; q < qty; q++) {
+            pkgs.push({
+              item: new Item(
+                (mp.name || 'Item') + ' ' + q,
+                mp.width, mp.height, mp.length, mp.weight,
+                rotation
+              ),
+              stackable: stackable
+            })
+          }
+        }
+        const packer = new Packer()
+        packer.addBin(bin)
+        packer.items.push(...checkStackable(bin, pkgs))
+        packer.pack()
+        return packer
+      }
+
       if ((bins.length > 0) && (packages.length > 0)) {
         let binpackingsolution = 0
         for (let b = 0; b < bins.length; b++) {
-          const packer = new Packer()
-          packer.addBin(bins[b])
-          packer.items.push(...checkStackable(bins[b], packages))
-          packer.pack()
+          // First attempt: use original allowedRotation as provided
+          let finalPacker = buildAndPack(b, null)
+          let solvedRotation = null
+
+          // Retry with each single rotation if first attempt failed
+          if (finalPacker.unfitItems.length > 0) {
+            const allRotations = new Set()
+            for (const p of msg.packages) {
+              const rot = p.allowedRotation || [0, 1, 2, 3, 4, 5]
+              rot.forEach(r => allRotations.add(r))
+            }
+            if (allRotations.size > 1) {
+              for (const singleRot of allRotations) {
+                const retryPacker = buildAndPack(b, [singleRot])
+                if (retryPacker.unfitItems.length === 0) {
+                  finalPacker = retryPacker
+                  solvedRotation = singleRot
+                  break
+                }
+              }
+            }
+          }
+
           msg.payload.result[b] = {}
 
-          // Compute metrics
-          const binInst = packer.bins[0]
+          // Compute metrics using the best packer result
+          const binInst = finalPacker.bins[0]
           const binVolume = binInst.getVolume()
           const maxWeight = binInst.getMaxWeight()
 
@@ -157,10 +208,11 @@ module.exports = function (RED) {
           }
 
           msg.payload.result[b].metrics = metrics
-          msg.payload.result[b].bin = JSON.parse(JSON.stringify(packer.bins[0]))
+          msg.payload.result[b].bin = JSON.parse(JSON.stringify(finalPacker.bins[0]))
           msg.payload.result[b].success = false
-          if (packer.unfitItems.length === 0) {
+          if (finalPacker.unfitItems.length === 0) {
             msg.payload.result[b].success = true
+            msg.payload.result[b].solvedRotation = solvedRotation
             binpackingsolution++
           }
         }
