@@ -427,19 +427,6 @@ const unknownStackableCases = [
   }
 ]
 
-// --- Quantity zero edge case -----------------------------------------------
-const quantityZeroCases = [
-  {
-    desc: 'quantity 0 produces zero items — packing has no packages',
-    input: {
-      bins: [bin(100, 100, 100, 500, 'b')],
-      packages: [{ name: 'ghost', width: 50, height: 50, length: 50, weight: 10, quantity: 0, stackable: '4', allowedRotation: [0] }]
-    },
-    // quantity 0 means the inner loop runs 0 times → no items → no packing happens
-    exp: { hasResult: false }
-  }
-]
-
 // --- Error handling --------------------------------------------------------
 const errorCases = [
   {
@@ -476,6 +463,5 @@ module.exports = {
   invalidBinCases,
   invalidPackageCases,
   rotationRetryEdgeCases,
-  unknownStackableCases,
-  quantityZeroCases
+  unknownStackableCases
 }

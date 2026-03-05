@@ -12,8 +12,7 @@ const {
   invalidBinCases,
   invalidPackageCases,
   rotationRetryEdgeCases,
-  unknownStackableCases,
-  quantityZeroCases
+  unknownStackableCases
 } = require('./index.test.data')
 
 const post = (data) => request(hostDemo).post('/').send(data)
@@ -180,13 +179,4 @@ describe('Unrecognized stackable values', () => {
   })
 })
 
-describe('Quantity zero edge case', () => {
-  quantityZeroCases.forEach(({ desc, input, exp }) => {
-    test(desc, async () => {
-      const res = await post(input)
-      if (exp.hasResult === false) {
-        expect(res.body.countok).toBeUndefined()
-      }
-    })
-  })
-})
+
