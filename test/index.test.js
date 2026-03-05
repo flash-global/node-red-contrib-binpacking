@@ -1,63 +1,192 @@
 const request = require('supertest')
 const hostDemo = 'http://localhost:1880/binpacking'
+const {
+  fitCases,
+  stackableCases,
+  quantityCases,
+  defaultsCases,
+  multiBinCases,
+  metricsCases,
+  rotationRetryCases,
+  errorCases,
+  invalidBinCases,
+  invalidPackageCases,
+  rotationRetryEdgeCases,
+  unknownStackableCases,
+  quantityZeroCases
+} = require('./index.test.data')
 
-const data = {
-  packages: [
-    {
-      name: 'bh',
-      width: 60,
-      height: 60,
-      length: 70,
-      weight: 28,
-      quantity: 1,
-      stackable: 'no',
-      allowedRotation: [
-        0
-      ]
-    }
-  ],
-  bins: [
-    {
-      name: 'break',
-      width: 100,
-      height: 100,
-      length: 120,
-      weight: 400
-    }
-  ]
-}
+const post = (data) => request(hostDemo).post('/').send(data)
 
-describe('Test related to binpacking', () => {
-  test('If stackable no and bin height > item height and have 1 quantity', async () => {
-    const response = await request(`${hostDemo}`).post('/').send(data)
-    expect(response.body.result[0].success).toBe(true)
-    const metrics = response.body.result[0].metrics
-    // usedVolume reflects post-stackability dims: 60 * 100 * 70 (height raised)
-    const expected = {
-      usedVolume: 420000.000, // 60 * 100 * 70
-      totalVolume: 1200000.000, // 100 * 100 * 120
-      availableVolume: 780000.000, // 1200000 - 420000
-      usedWeight: 28.00, // 28
-      totalWeight: 400.00, // 400
-      availableWeight: 372.00 // 400 - 28
-    }
-    expect(metrics).toEqual(expected)
+describe('Fit / no-fit basics', () => {
+  fitCases.forEach(({ desc, input, exp }) => {
+    test(desc, async () => {
+      const res = await post(input)
+      expect(res.body.result[0].success).toBe(exp.success)
+      if (exp.countok !== undefined) expect(res.body.countok).toBe(exp.countok)
+    })
   })
+})
 
-  test('If stackable no and bin height > item height and have 2 quantity', async () => {
-    data.packages[0].quantity = 2
-    const response = await request(`${hostDemo}`).post('/').send(data)
-    expect(response.body.result[0].success).toBe(false)
-    const metrics = response.body.result[0].metrics
-    expect(metrics).toBeDefined()
-    const expected = {
-      usedVolume: 420000.000, // Only 1 fits: 60 * 100 * 70
-      totalVolume: 1200000.000, // 100 * 100 * 120
-      availableVolume: 780000.000, // 1200000 - 420000
-      usedWeight: 28.00, // 28
-      totalWeight: 400.00, // 400
-      availableWeight: 372.00 // 400 - 28
-    }
-    expect(metrics).toEqual(expected)
+describe('Stackable levels', () => {
+  stackableCases.forEach(({ desc, input, exp }) => {
+    test(desc, async () => {
+      const res = await post(input)
+      expect(res.body.result[0].success).toBe(exp.success)
+      if (exp.metrics) {
+        Object.entries(exp.metrics).forEach(([key, val]) => {
+          expect(res.body.result[0].metrics[key]).toBe(val)
+        })
+      }
+    })
+  })
+})
+
+describe('Quantity handling', () => {
+  quantityCases.forEach(({ desc, input, exp }) => {
+    test(desc, async () => {
+      const res = await post(input)
+      expect(res.body.result[0].success).toBe(exp.success)
+      if (exp.countok !== undefined) expect(res.body.countok).toBe(exp.countok)
+      if (exp.metrics) {
+        Object.entries(exp.metrics).forEach(([key, val]) => {
+          expect(res.body.result[0].metrics[key]).toBe(val)
+        })
+      }
+    })
+  })
+})
+
+describe('Default values', () => {
+  defaultsCases.forEach(({ desc, input, exp }) => {
+    test(desc, async () => {
+      const res = await post(input)
+      expect(res.body.result[0].success).toBe(exp.success)
+      if (exp.countok !== undefined) expect(res.body.countok).toBe(exp.countok)
+      if (exp.metrics) {
+        Object.entries(exp.metrics).forEach(([key, val]) => {
+          expect(res.body.result[0].metrics[key]).toBe(val)
+        })
+      }
+    })
+  })
+})
+
+describe('Multiple bins', () => {
+  multiBinCases.forEach(({ desc, input, exp }) => {
+    test(desc, async () => {
+      const res = await post(input)
+      expect(res.body.result).toHaveLength(exp.resultLength)
+      exp.perBin.forEach((expectedSuccess, i) => {
+        expect(res.body.result[i].success).toBe(expectedSuccess)
+      })
+      expect(res.body.countok).toBe(exp.countok)
+    })
+  })
+})
+
+describe('Metrics accuracy', () => {
+  metricsCases.forEach(({ desc, input, exp }) => {
+    test(desc, async () => {
+      const res = await post(input)
+      expect(res.body.result[0].success).toBe(exp.success)
+      expect(res.body.result[0].metrics).toEqual(exp.metrics)
+    })
+  })
+})
+
+describe('Rotation retry', () => {
+  rotationRetryCases.forEach(({ desc, input, exp }) => {
+    test(desc, async () => {
+      const res = await post(input)
+      expect(res.body.result[0].success).toBe(exp.success)
+      if (exp.solvedRotation !== undefined) {
+        expect(res.body.result[0].solvedRotation).toBe(exp.solvedRotation)
+      }
+      if (exp.countok !== undefined) expect(res.body.countok).toBe(exp.countok)
+      if (exp.metrics) {
+        Object.entries(exp.metrics).forEach(([key, val]) => {
+          expect(res.body.result[0].metrics[key]).toBe(val)
+        })
+      }
+    })
+  })
+})
+
+describe('Error handling', () => {
+  errorCases.forEach(({ desc, input, exp }) => {
+    test(desc, async () => {
+      const res = await post(input)
+      if (exp.hasResult === false) {
+        expect(res.body.countok).toBeUndefined()
+      }
+    })
+  })
+})
+
+describe('Invalid bin fields', () => {
+  invalidBinCases.forEach(({ desc, input, exp }) => {
+    test(desc, async () => {
+      const res = await post(input)
+      if (exp.hasResult === false) {
+        expect(res.body.countok).toBeUndefined()
+      }
+      if (exp.countok !== undefined) {
+        expect(res.body.countok).toBe(exp.countok)
+      }
+    })
+  })
+})
+
+describe('Invalid package fields', () => {
+  invalidPackageCases.forEach(({ desc, input, exp }) => {
+    test(desc, async () => {
+      const res = await post(input)
+      if (exp.hasResult === false) {
+        expect(res.body.countok).toBeUndefined()
+      }
+      if (exp.countok !== undefined) {
+        expect(res.body.countok).toBe(exp.countok)
+      }
+    })
+  })
+})
+
+describe('Rotation retry edge cases', () => {
+  rotationRetryEdgeCases.forEach(({ desc, input, exp }) => {
+    test(desc, async () => {
+      const res = await post(input)
+      expect(res.body.result[0].success).toBe(exp.success)
+      if (exp.countok !== undefined) expect(res.body.countok).toBe(exp.countok)
+      if (exp.solvedRotation !== undefined) {
+        expect(res.body.result[0].solvedRotation).toBe(exp.solvedRotation)
+      }
+    })
+  })
+})
+
+describe('Unrecognized stackable values', () => {
+  unknownStackableCases.forEach(({ desc, input, exp }) => {
+    test(desc, async () => {
+      const res = await post(input)
+      expect(res.body.result[0].success).toBe(exp.success)
+      if (exp.countok !== undefined) expect(res.body.countok).toBe(exp.countok)
+      if (exp.metrics) {
+        Object.entries(exp.metrics).forEach(([key, val]) => {
+          expect(res.body.result[0].metrics[key]).toBe(val)
+        })
+      }
+    })
+  })
+})
+
+describe('Quantity zero edge case', () => {
+  quantityZeroCases.forEach(({ desc, input, exp }) => {
+    test(desc, async () => {
+      const res = await post(input)
+      if (exp.hasResult === false) {
+        expect(res.body.countok).toBeUndefined()
+      }
+    })
   })
 })

@@ -49,5 +49,8 @@
     "test": "npm run lint && npm run jest",
     "start": "node-red -s sample/settings.js sample/flow.json -u sample/"
   },
-  "version": "1.3.0"
+  "version": "1.3.0",
+  "engines": {
+    "node": ">=20"
+  }
 }

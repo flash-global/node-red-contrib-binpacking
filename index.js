@@ -1,3 +1,5 @@
+const { Item, Bin, Packer } = require('binpackingjs').BP3D
+
 module.exports = function (RED) {
   function BinPackingError (node, msg) {
     node.status({
@@ -80,22 +82,19 @@ module.exports = function (RED) {
     RED.nodes.createNode(this, config)
     const node = this
     node.on('input', function (msg) {
-      const {
-        Item,
-        Bin,
-        Packer
-      } = require('binpackingjs').BP3D
       msg.payload = {}
       msg.payload.result = []
 
       // Bins Setup
       const bins = []
+      const validBins = []
       if (msg.bins && msg.bins.length > 0) {
         for (const bin in msg.bins) {
           if (msg.bins[bin].width && msg.bins[bin].height && msg.bins[bin].length && msg.bins[bin].weight) {
             if (!msg.bins[bin].name) msg.bins[bin].name = 'vehicle'
             bins.push(new Bin(msg.bins[bin].name + ' ' + bin, parseInt(msg.bins[bin].width),
               parseInt(msg.bins[bin].height), parseInt(msg.bins[bin].length), parseInt(msg.bins[bin].weight)))
+            validBins.push(msg.bins[bin])
           } else BinPackingError(this, 'invalid msg.bins')
         }
       } else BinPackingError(this, 'missing msg.bins')
@@ -128,9 +127,9 @@ module.exports = function (RED) {
         }
       } else BinPackingError(this, 'missing msg.packages')
 
-      // Helper: build a fresh packer with new Bin/Item objects for a given bin index
+      // Helper: build a fresh packer with new Bin/Item objects for a given valid bin index
       function buildAndPack (binIdx, rotationOverride) {
-        const b = msg.bins[binIdx]
+        const b = validBins[binIdx]
         const bin = new Bin(
           (b.name || 'vehicle') + ' ' + binIdx,
           parseInt(b.width), parseInt(b.height),
@@ -208,7 +207,7 @@ module.exports = function (RED) {
           }
 
           msg.payload.result[b].metrics = metrics
-          msg.payload.result[b].bin = JSON.parse(JSON.stringify(finalPacker.bins[0]))
+          msg.payload.result[b].bin = structuredClone(finalPacker.bins[0])
           msg.payload.result[b].success = false
           if (finalPacker.unfitItems.length === 0) {
             msg.payload.result[b].success = true
