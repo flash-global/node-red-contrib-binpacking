@@ -1,7 +1,3 @@
-// ===========================================================================
-// Test data for binpacking E2E tests
-// Each entry: { desc, input: { bins, packages }, exp }
-// ===========================================================================
 
 const bin = (w, h, l, wt, name) => ({ name, width: w, height: h, length: l, weight: wt })
 const pkg = (w, h, l, wt, opts = {}) => ({
