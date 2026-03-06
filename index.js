@@ -89,12 +89,12 @@ module.exports = function (RED) {
       const bins = []
       const validBins = []
       if (msg.bins && msg.bins.length > 0) {
-        for (const bin in msg.bins) {
-          if (msg.bins[bin].width && msg.bins[bin].height && msg.bins[bin].length && msg.bins[bin].weight) {
-            if (!msg.bins[bin].name) msg.bins[bin].name = 'vehicle'
-            bins.push(new Bin(msg.bins[bin].name + ' ' + bin, parseInt(msg.bins[bin].width),
-              parseInt(msg.bins[bin].height), parseInt(msg.bins[bin].length), parseInt(msg.bins[bin].weight)))
-            validBins.push(msg.bins[bin])
+        for (const binIndex in msg.bins) {
+          if (msg.bins[binIndex].width && msg.bins[binIndex].height && msg.bins[binIndex].length && msg.bins[binIndex].weight) {
+            if (!msg.bins[binIndex].name) msg.bins[binIndex].name = 'vehicle'
+            bins.push(new Bin(msg.bins[binIndex].name + ' ' + binIndex, parseInt(msg.bins[binIndex].width),
+              parseInt(msg.bins[binIndex].height), parseInt(msg.bins[binIndex].length), parseInt(msg.bins[binIndex].weight)))
+            validBins.push({ index: binIndex, data: { ...msg.bins[binIndex] } })
           } else BinPackingError(this, 'invalid msg.bins')
         }
       } else BinPackingError(this, 'missing msg.bins')
@@ -129,9 +129,9 @@ module.exports = function (RED) {
 
       // Helper: build a fresh packer with new Bin/Item objects for a given valid bin index
       function buildAndPack (binIdx, rotationOverride) {
-        const b = validBins[binIdx]
+        const b = validBins[binIdx].data
         const bin = new Bin(
-          (b.name || 'vehicle') + ' ' + binIdx,
+          (b.name || 'vehicle') + ' ' + validBins[binIdx].index,
           parseInt(b.width), parseInt(b.height),
           parseInt(b.length), parseInt(b.weight)
         )
